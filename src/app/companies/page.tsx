@@ -133,37 +133,9 @@ function ParallaxText({ baseVelocity = 100 }: ParallaxProps) {
 
 export default function Home() {
   return (
-    <main className='flex min-h-screen flex-col items-center'>
-      <div className="w-full min-h-screen bg-[url('/background.png')] bg-no-repeat bg-cover bg-top">
-        <section className='flex flex-col justify-center items-center relative'>
-          <Image
-            src='/banner_promocao.png'
-            alt='Banner promocional'
-            width={800}
-            height={800}
-            className='mt-48 translate-y-7'
-          />
-          <Image
-            src='/light_left.png'
-            alt='Light'
-            width={800}
-            height={800}
-            className='absolute left-0 top-0'
-          />
-          <Image
-            src='/light_right.png'
-            alt='Light'
-            width={800}
-            height={800}
-            className='absolute right-0 top-0'
-          />
-        </section>
-
-        <section className='flex flex-col gap-4'>
-          <ParallaxText baseVelocity={-4} />
-          <ParallaxText baseVelocity={4} />
-        </section>
-      </div>
-    </main>
+    <section className='flex flex-col gap-4 bg-transparent'>
+      <ParallaxText baseVelocity={-4} />
+      <ParallaxText baseVelocity={4} />
+    </section>
   )
 }
