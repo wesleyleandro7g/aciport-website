@@ -187,7 +187,7 @@ function ParallaxText({ images, baseVelocity = 100 }: ParallaxProps) {
             width={logoWidth}
             height={logoWidth}
             alt={logo.company}
-            className='mr-[12px] transition-transform duration-300 rounded-lg w-[100px] md:w-[200px]'
+            className='mr-[12px] transition-transform duration-300 rounded-lg w-[100px] md:w-[120px] lg:w-[120]'
           />
         ))}
       </motion.div>
