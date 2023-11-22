@@ -15,10 +15,15 @@ import { wrap } from '@motionone/utils'
 
 interface ParallaxProps {
   baseVelocity: number
+  images: {
+    company: string
+    src: string
+  }[]
 }
 
 const logoWidth = 120
-const logos = [
+
+const all = [
   { company: 'ALPHA', src: '/logos/ALPHA.jpg' },
   { company: 'ARMAZEM', src: '/logos/ARMAZEM.jpg' },
   { company: 'AUTOESCOLA ANDREIA', src: '/logos/AUTOESCOLA_ANDREIA.jpg' },
@@ -68,7 +73,66 @@ const logos = [
   { company: 'UNILAR', src: '/logos/UNILAR.jpg' },
 ]
 
-function ParallaxText({ baseVelocity = 100 }: ParallaxProps) {
+const part1 = [
+  { company: 'ALPHA', src: '/logos/ALPHA.jpg' },
+  { company: 'ARMAZEM', src: '/logos/ARMAZEM.jpg' },
+  { company: 'AUTOESCOLA ANDREIA', src: '/logos/AUTOESCOLA_ANDREIA.jpg' },
+  { company: 'AUTOMOTIVA TEIXEIRA', src: '/logos/AUTOMOTIVA_TEIXEIRA.jpg' },
+  { company: 'BICIPECAS', src: '/logos/BICIPECAS.svg' },
+  { company: 'CARLOS_MOVEIS', src: '/logos/CARLOS_MOVEIS.svg' },
+  { company: 'CASA_HELLEN', src: '/logos/CASA_HELLEN.svg' },
+  { company: 'CENTER_CASA', src: '/logos/CENTER_CASA.jpg' },
+  { company: 'COMPRE_CERTO', src: '/logos/COMPRE_CERTO.jpg' },
+  { company: 'CRISFA_SUPERMERCADO', src: '/logos/CRISFA_SUPERMERCADO.jpg' },
+  { company: 'DROGARIA_POUPEJA', src: '/logos/DROGARIA_POUPEJA.svg' },
+]
+
+const part2 = [
+  { company: 'DROGARIA_UNYMINAS', src: '/logos/DROGARIA_UNYMINAS.svg' },
+  {
+    company: 'EXTRA_BOM_SUPERMERCADO',
+    src: '/logos/EXTRA_BOM_SUPERMERCADO.svg',
+  },
+  { company: 'FARMACIA_DOS_ANIMAIS', src: '/logos/FARMACIA_DOS_ANIMAIS.svg' },
+  { company: 'GAMA', src: '/logos/GAMA.svg' },
+  { company: 'HIDRO_PORT', src: '/logos/HIDRO_PORT.svg' },
+  { company: 'JAMES_MOTO_SHOP', src: '/logos/JAMES_MOTO_SHOP.svg' },
+  { company: 'FERRAGISTA', src: '/logos/FERRAGISTA.jpg' },
+  { company: 'FLOR_DE_LIS', src: '/logos/FLOR_DE_LIS.jpg' },
+  { company: 'GAS_PORT', src: '/logos/GAS_PORT.jpg' },
+  { company: 'JACOB_IMPORTS', src: '/logos/JACOB_IMPORTS.jpg' },
+  { company: 'LOURENCO', src: '/logos/LOURENCO.jpg' },
+]
+
+const part3 = [
+  { company: 'LABORATORIO_IPAC', src: '/logos/LABORATORIO_IPAC.svg' },
+  { company: 'LODY_MOVEIS', src: '/logos/LODY_MOVEIS.svg' },
+  { company: 'MADEPORT', src: '/logos/MADEPORT.svg' },
+  { company: 'MARTINS_SUPERMERCADO', src: '/logos/MARTINS_SUPERMERCADO.svg' },
+  { company: 'MEGABOM_SUPERMERCADO', src: '/logos/MEGABOM_SUPERMERCADO.svg' },
+  { company: 'MALHARIA_XAVIER', src: '/logos/MALHARIA_XAVIER.jpg' },
+  { company: 'MEGA_CONSTRUCAO', src: '/logos/MEGA_CONSTRUCAO.jpg' },
+  { company: 'MERCADINHO_MR', src: '/logos/MERCADINHO_MR.jpg' },
+  { company: 'POPULAR_FARMA', src: '/logos/POPULAR_FARMA.jpg' },
+  { company: 'REDE_INOVA', src: '/logos/REDE_INOVA.jpg' },
+  { company: 'SUPERMERCADO_MULUNGU', src: '/logos/SUPERMERCADO_MULUNGU.jpg' },
+]
+
+const part4 = [
+  { company: 'OTICA_ISIS', src: '/logos/OTICA_ISIS.svg' },
+  { company: 'PADARIA_PAO_DE_MEL', src: '/logos/PADARIA_PAO_DE_MEL.svg' },
+  { company: 'PORTAL_MAGAZINE', src: '/logos/PORTAL_MAGAZINE.svg' },
+  { company: 'SUPER_SIL', src: '/logos/SUPER_SIL.svg' },
+  { company: 'SUPERMERCADO_MAIS', src: '/logos/SUPERMERCADO_MAIS.svg' },
+  { company: 'SUPERMERCADO_UNIAO', src: '/logos/SUPERMERCADO_UNIAO.svg' },
+  { company: 'ZICASA', src: '/logos/ZICASA.svg' },
+  { company: 'ZIZA_MODAS', src: '/logos/ZIZA_MODAS.svg' },
+  { company: 'TECPORT', src: '/logos/TECPORT.jpg' },
+  { company: 'TOP_CALCADOS', src: '/logos/TOP_CALCADOS.jpg' },
+  { company: 'UNILAR', src: '/logos/UNILAR.jpg' },
+]
+
+function ParallaxText({ images, baseVelocity = 100 }: ParallaxProps) {
   const baseX = useMotionValue(0)
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
@@ -85,7 +149,7 @@ function ParallaxText({ baseVelocity = 100 }: ParallaxProps) {
    * have to replace for wrapping that works for you or dynamically
    * calculate
    */
-  const x = useTransform(baseX, (v) => `${wrap(-200, 0, v)}%`)
+  const x = useTransform(baseX, (v) => `${wrap(-230, 0, v)}%`)
 
   const directionFactor = useRef<number>(1)
   useAnimationFrame((t, delta) => {
@@ -116,14 +180,14 @@ function ParallaxText({ baseVelocity = 100 }: ParallaxProps) {
   return (
     <div className='parallax'>
       <motion.div className='scroller' style={{ x }}>
-        {logos.map((logo, index) => (
+        {images.map((logo, index) => (
           <Image
             key={index}
             src={logo.src}
             width={logoWidth}
             height={logoWidth}
             alt={logo.company}
-            className='mr-[20px] transition-transform duration-300 rounded-lg'
+            className='mr-[12px] transition-transform duration-300 rounded-lg w-[100px] md:w-[200px]'
           />
         ))}
       </motion.div>
@@ -134,8 +198,10 @@ function ParallaxText({ baseVelocity = 100 }: ParallaxProps) {
 export default function Home() {
   return (
     <section className='flex flex-col gap-4 bg-transparent'>
-      <ParallaxText baseVelocity={-4} />
-      <ParallaxText baseVelocity={4} />
+      <ParallaxText baseVelocity={-4} images={part1} />
+      <ParallaxText baseVelocity={6} images={part2} />
+      <ParallaxText baseVelocity={-6} images={part3} />
+      <ParallaxText baseVelocity={4} images={part4} />
     </section>
   )
 }
